@@ -1,0 +1,2 @@
+export const ADD_TO_FAVOURITES='ADD_TO_FAVOURITES'
+export const UPLOAD_DATA='UPLOAD_DATA'
