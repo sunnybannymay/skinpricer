@@ -1,17 +1,17 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import items_list from '../../api/api'
-import * as types from './mutations/mutation-types'
+import items_list from '../api'
+import * as types from './mutation-types'
 
 Vue.use(Vuex);
 const state = {
-    items: []
+    items_bitskins: [],
 
 };
 
 const getters ={
-    getAllItems: state=>state.items
-}
+    getAllItems_bitskins: state=>state.items_bitskins,
+};
 const actions = {
     getItemData({ commit }) {
         items_list.getItemsData(
@@ -21,7 +21,8 @@ const actions = {
 };
 const mutations = {
     [types.UPLOAD_DATA](state, { items }) {
-        state.items = items
+        state.items_bitskins = items;
+        console.log(state.items_bitskins);
     }
 };
 const store = new Vuex.Store({

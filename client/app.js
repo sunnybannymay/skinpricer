@@ -6,10 +6,7 @@ const app = new Vue({
     components: {
         Tablet
     },
-    render(h) {
-        return ( 
-             <Tablet></Tablet>);
-    },
+    render: h=>h(Tablet),
     store
 });
 export {app}

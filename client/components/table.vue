@@ -3,7 +3,7 @@
         <button @click="UpdateData"> Add Data</button>
         <!-- <div>
             <ul>
-                <li v-for="item in items">
+                <li v-for="item in items_bitskins">
                     {{item.item_name}} {{item.price}} {{item.average_p}}</li>
             </ul>
         </div> -->
@@ -14,10 +14,11 @@
                             <th>price</th>
                             <th>average price</th>
                         </tr>
-                        <tr v-for="item in items">
-                            <td>{{item.item_name}}</td>
-                            <td>{{item.price}}</td>
+                        <tr v-for="item in items_bitskins">
+                            <td>{{item.market_hash_name}}</td>
+                            <td>{{item.total_items}}</td>
                             <td>{{item.average_p}}</td>
+                            <td></td>
                         </tr>
                     </table> 
     </div>
@@ -29,16 +30,18 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
     computed:
     mapGetters({
-        items: 'getAllItems'
+        items_bitskins: 'getAllItems_bitskins',
+        items_csgocom:'getAllItems_csgocom'
     }),
     methods: {
         UpdateData() {
             this.$store.dispatch('getItemData')
-        }
+        },
+
     },
-    //  created () {
-    // this.$store.dispatch('getItemData')
-  //}
+      created () {
+     this.$store.dispatch('getItemData')
+  }
 } 
 </script>
 
