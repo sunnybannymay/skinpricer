@@ -1,12 +1,6 @@
 <template>
     <div>
-        <button @click="UpdateData"> Add Data</button>
-        <!-- <div>
-            <ul>
-                <li v-for="item in items_bitskins">
-                    {{item.item_name}} {{item.price}} {{item.average_p}}</li>
-            </ul>
-        </div> -->
+        <button @click="ShowFavourites"> Add Data</button>
          <table>
                         <caption>Items prices</caption>
                         <tr>
@@ -31,16 +25,17 @@ export default {
     computed:
     mapGetters({
         items_bitskins: 'getAllItems_bitskins',
-        items_csgocom:'getAllItems_csgocom'
+        items_opskins:'getAllItems_opskins'
     }),
     methods: {
-        UpdateData() {
-            this.$store.dispatch('getItemData')
+        ShowFavourites() {
+
         },
 
     },
       created () {
-     this.$store.dispatch('getItemData')
+     this.$store.dispatch('getItemsData_bitskins'),
+         this.$store.dispatch('getItemsData_opskins')
   }
 } 
 </script>

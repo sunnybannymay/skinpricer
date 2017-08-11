@@ -1,12 +1,14 @@
 import Vue from 'vue';
-import Tablet from './components/table';
-import store from './store/store';
+import App from './components/App';
+import store from './store/store'
+import { sync } from 'vuex-router-sync';
+import router from './router/router';
+
+sync(store, router);
 
 const app = new Vue({
-    components: {
-        Tablet
-    },
-    render: h=>h(Tablet),
-    store
+    store,
+    router,
+    ...App
 });
-export {app}
+export {app,router,store}
