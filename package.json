@@ -41,6 +41,7 @@
   "dependencies": {
     "axios": "^0.16.2",
     "babel-runtime": "^6.18.0",
+    "lodash": "^4.17.4",
     "notp": "^2.0.3",
     "promise-polyfill": "^6.0.2",
     "thirty-two": "^1.0.2",

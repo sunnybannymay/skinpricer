@@ -4,7 +4,6 @@ import {apikey} from '../config.json'
 let totp = require('notp').totp;
 let base32 = require('thirty-two');
 // print out a code that's valid right now
-let code =totp.gen(base32.decode('VOKWF3ALZQGNAT3U'));
 
 
 // export const results=[    { item_name: "AK-47", price: "73$", average_p: "80$" },
@@ -13,6 +12,7 @@ let code =totp.gen(base32.decode('VOKWF3ALZQGNAT3U'));
 
 export default {
    getItemsData_bitskins(items) {
+       let code =totp.gen(base32.decode('VOKWF3ALZQGNAT3U'));
     axios.get(`https://bitskins.com/api/v1/get_price_data_for_items_on_sale/?api_key=${apikey}&code=${code}`).then(res=>{
         console.log(res);
         return items(res.data.data.items);

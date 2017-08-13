@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Table from '../components/Table.vue';
+import Table from '../components/table/Table.vue';
 import favourites from '../components/favourites.vue'
 
 Vue.use(Router);
