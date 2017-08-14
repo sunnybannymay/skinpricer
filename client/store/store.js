@@ -1,9 +1,10 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import api from '../api';
+import api from './api';
 import * as mutation_types from './mutation-types';
 import * as action_types from './action-types';
 import * as getter_types from './getter-types';
+import axios from 'axios';
 import col from 'lodash';
 
 Vue.use(Vuex);
@@ -22,7 +23,8 @@ const getters = {
         if (state.items_opskins.length === 0) store.dispatch(action_types.GET_ITEMS_OPSKINS);
         store.commit(mutation_types.GET_ALL_ITEMS);
         return state.items;
-    }
+    },
+    [getter_types.GET_FAVOURITE_ITEMS]: state => state.favouriteItemsList
 };
 const actions = {
     [action_types.GET_ITEMS_BITSKINS]({commit}) {
@@ -38,6 +40,17 @@ const actions = {
                 commit(mutation_types.UPLOAD_DATA_OPSKINS, {items})
             }
         )
+    },
+    [action_types.ADD_TO_FAVS]({commit}, item) {
+        commit(mutation_types.ADD_TO_FAVS, {item});
+    },
+    [action_types.GET_FAV_ITEMS]({commit}){
+        axios.get('http://localhost:3000/favItemsList')
+            .then((res) => {
+            console.log(res);
+                commit(mutation_types.GET_FAV_ITEMS, res.data);
+            })
+            .catch(() => commit('setNotFound'));
     }
 
 };
@@ -61,10 +74,36 @@ const mutations = {
             .values() // turn the combined dictionary to array
             .value().map((item) => {
                 item.price = item.price / 100;
-                item.bitop=(item.lowest_price/item.price*100).toFixed(2);
+                item.bitop = (item.lowest_price / item.price * 100).toFixed(2);
+                item.opbit = (item.price / item.lowest_price * 100).toFixed(2);
                 return item;
             });
         console.log(state.items);
+    },
+    [mutation_types.ADD_TO_FAVS](state, item) {
+        console.log('item', item);
+        const newItem={
+            "market_hash_name":item.market_hash_name,
+            "price opskins":item.price,
+            "lowest price":item.lowest_price
+        };
+        console.log(newItem);
+        state.favouriteItemsList.push(newItem);
+        console.log(state.favouriteItemsList);
+        axios.post('http://localhost:3000/favItemsList', newItem);
+    },
+    [mutation_types.GET_FAV_ITEMS](state, favitems) {
+       state.favouriteItemsList=favitems;
+       console.log(state.favouriteItemsList);
+    },
+    setNotFound(state) {
+        console.log('ee');
+        state.currentCity = {
+            temperature: '',
+            name: null,
+            description: '',
+            imgUrl: ''
+        };
     }
 };
 const store = new Vuex.Store({

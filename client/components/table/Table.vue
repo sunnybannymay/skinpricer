@@ -10,7 +10,7 @@
                 <td>{{item.price}}</td>
                 <td>{{item.bitop}} %</td>
                 <td>
-                    <button @click="doSome">Add to favs</button>
+                    <button @click="addToFav(item)">Add to favs</button>
                 </td>
             </tr>
         </table>
@@ -23,15 +23,12 @@
     import * as mutation_types from '../../store/mutation-types';
     import * as action_types from '../../store/action-types';
     import * as getter_types from '../../store/getter-types';
-    import col from 'lodash';
-    import index from "../App/index";
 
     export default {
         data() {
             return {
                 columns: ['item name', 'lowest price bitskins', 'lowest price opskins', 'BIT/OP (%)', 'OP/BIT (%)'],
-                items_bitskins: [],
-                items_opskins: []
+                favItemsList:[]
 //                items: () => {
 //                    let items = _(this.items_bitskins) // start sequence
 //                        .keyBy('market_hash_name') // create a dictionary of the 1st array
@@ -72,14 +69,9 @@
                 }),
         methods:
             {
-                doSome() {
-//                    let items = _(this.items_bitskins) // start sequence
-//                        .keyBy('market_hash_name') // create a dictionary of the 1st array
-//                        .merge(_.keyBy(this.items_opskins, 'market_hash_name')) // create a dictionary of the 2nd array, and merge it to the 1st
-//                        .values() // turn the combined dictionary to array
-//                        .value();
-//                    console.log(items);
-                    console.log(this.items);
+                addToFav (itemToAdd) {
+                    console.log(itemToAdd);
+                    this.$store.dispatch(action_types.ADD_TO_FAVS,itemToAdd)
                 }
             },
         created() {

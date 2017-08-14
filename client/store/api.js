@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {apikey} from '../config.json'
+import {apikey} from '../../config.json'
 
 let totp = require('notp').totp;
 let base32 = require('thirty-two');
