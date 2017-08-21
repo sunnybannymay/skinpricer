@@ -5,6 +5,8 @@ import * as mutation_types from './mutation-types';
 import * as action_types from './action-types';
 import * as getter_types from './getter-types';
 import axios from 'axios';
+
+
 import col from 'lodash';
 
 Vue.use(Vuex);
@@ -19,8 +21,10 @@ const getters = {
     [getter_types.GET_ITEMS_BITSKINS]: state => state.items_bitskins,
     [getter_types.GET_ITEMS_OPSKINS]: state => state.items_opskins,
     [getter_types.GET_ITEMS]: state => {
-        if (state.items_bitskins.length === 0) store.dispatch(action_types.GET_ITEMS_BITSKINS);
-        if (state.items_opskins.length === 0) store.dispatch(action_types.GET_ITEMS_OPSKINS);
+        if (state.items_bitskins.length === 0 || state.items_opskins.length === 0) {
+            store.dispatch(action_types.GET_ITEMS_BITSKINS);
+            store.dispatch(action_types.GET_ITEMS_OPSKINS);
+        }
         store.commit(mutation_types.GET_ALL_ITEMS);
         return state.items;
     },
@@ -42,17 +46,22 @@ const actions = {
         )
     },
     [action_types.ADD_TO_FAVS]({commit}, item) {
-        commit(mutation_types.ADD_TO_FAVS, {item});
+        item.addedToFav=true;
+        commit(mutation_types.ADD_TO_FAVS, item);
     },
-    [action_types.GET_FAV_ITEMS]({commit}){
+    [action_types.GET_FAV_ITEMS]({commit}) {
         axios.get('http://localhost:3000/favItemsList')
             .then((res) => {
-            console.log(res);
+                console.log(res);
                 commit(mutation_types.GET_FAV_ITEMS, res.data);
             })
             .catch(() => commit('setNotFound'));
+    },
+    [action_types.SEARCH_ITEM] (value) {
+        return new Promise((resolve, reject) => {
+            api.search(value, resolve, reject);
+        })
     }
-
 };
 const mutations = {
     [mutation_types.UPLOAD_DATA](state, {items}) {
@@ -76,25 +85,25 @@ const mutations = {
                 item.price = item.price / 100;
                 item.bitop = (item.lowest_price / item.price * 100).toFixed(2);
                 item.opbit = (item.price / item.lowest_price * 100).toFixed(2);
+                item.addedToFav = false;
                 return item;
             });
-        console.log(state.items);
     },
     [mutation_types.ADD_TO_FAVS](state, item) {
         console.log('item', item);
-        const newItem={
-            "market_hash_name":item.market_hash_name,
-            "price opskins":item.price,
-            "lowest price":item.lowest_price
-        };
-        console.log(newItem);
-        state.favouriteItemsList.push(newItem);
-        console.log(state.favouriteItemsList);
-        axios.post('http://localhost:3000/favItemsList', newItem);
+        console.log(state.items);
+        state.favouriteItemsList.push(item);
+        axios.post('http://localhost:3000/favItemsList', item);
     },
     [mutation_types.GET_FAV_ITEMS](state, favitems) {
-       state.favouriteItemsList=favitems;
-       console.log(state.favouriteItemsList);
+        state.favouriteItemsList = favitems;
+        console.log(state.favouriteItemsList);
+    },
+    [mutation_types.DELETE_FROM_FAV](state, itemToRemove) {
+        const index = state.favouriteItemsList
+            .findIndex(item => itemToRemove.id === item.id);
+        state.favouriteItemsList.splice(index, 1);
+        axios.delete('http://localhost:3000/favItemsList/' + itemToRemove.id);
     },
     setNotFound(state) {
         console.log('ee');

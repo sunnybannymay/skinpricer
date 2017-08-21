@@ -1,27 +1,24 @@
 <template>
 
-    <div class="page">
-        <ul>
-            <li v-for="item in favItemsList">{{item.market_hash_name}}</li>
-        </ul>
-        <!--<div class="search-panel">-->
-        <!--<input class="search-panel__input"-->
-        <!--type="search"-->
-        <!--placeholder="Search city"-->
-        <!--v-on:input="searchItem($event.target.value)">-->
-        <!--<div class="search-panel__list">-->
-        <!--<div class="search-panel__list__item" v-for="city in foundedCityList" @click="addToFav(city)">-->
-        <!--{{ city.name }}-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<router-link v-bind:to="'/city/' + city.name" class="city-card__content">-->
-        <!--<div class="city-card__content__status-icon"-->
-        <!--v-bind:style="{ 'background-image': 'url(' + city.icon_url + ')' }"></div>-->
-        <!--<div class="city-card__content__condition">{{city.conditionText}}</div>-->
-        <!--<div class="city-card__content__temperature">{{city.temperature}}°C</div>-->
-        <!--<div class="city-card__content__title">{{city.name}}</div>-->
-        <!--</router-link>-->
+    <div class="container favs-page">
+        <router-link class="favs-page__router-back" to="/">
+            <button class="favs-page__button-back">Back</button>
+        </router-link>
+        <table class="fav-Items__table">
+            <tr>
+                <th v-for="key in columns">{{key}}</th>
+            </tr>
+            <tr v-for="item in favItemsList">
+                <td>{{item.market_hash_name}}</td>
+                <td>{{item.lowest_price}}</td>
+                <td>{{item.price}}</td>
+                <td>{{item.bitop}} %</td>
+                <td>{{item.opbit}} %</td>
+                <td>
+                    <button class="button_addtofav" @click="deleteItemFav(item)">Delete from favs</button>
+                </td>
+            </tr>
+        </table>
     </div>
 </template>
 <script>
@@ -32,7 +29,16 @@
     import {mapGetters, mapActions} from 'vuex';
 
     export default {
+        data() {
+            return {
+                columns: ['item name', 'lowest price bitskins', 'lowest price opskins', 'BIT/OP (%)', 'OP/BIT (%)','Delete from fav']
+
+            }
+        },
         methods: {
+            deleteItemFav(item) {
+    this.$store.commit(mutation_types.DELETE_FROM_FAV,item);
+            }
 //            searchItem: (value) => {
 //                this.$store.dispatch([action_types.SEARCH_ITEM], value);
 ////                    .then((res) => {
@@ -50,13 +56,85 @@
             mapGetters({
                 favItemsList: getter_types.GET_FAVOURITE_ITEMS
             }),
-        data: function () {
-            return {
-                foundedCityList: []
-            }
-        },
         mounted() {
             this.$store.dispatch(action_types.GET_FAV_ITEMS);
         }
     };
 </script>
+
+<style lang="scss">
+    $maincolor: #42b983;
+    body {
+        font-family: Helvetica Neue, Arial, sans-serif;
+        font-size: 14px;
+        color: #444;
+    }
+
+    table {
+        border: 2px solid $maincolor;
+        border-radius: 3px;
+        background-color: #fff;
+    }
+
+    th {
+        background-color: $maincolor;
+        color: rgba(255, 255, 255, 0.66);
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    td {
+        background-color: #f9f9f9;
+    }
+
+    th, td {
+        min-width: 120px;
+        padding: 10px 20px;
+    }
+
+    th.active {
+        color: #fff;
+        .arrow {
+            opacity: 1;
+        }
+    }
+
+    .arrow {
+        display: inline-block;
+        vertical-align: middle;
+        width: 0;
+        height: 0;
+        margin-left: 5px;
+        opacity: 0.66;
+        &.asc {
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-bottom: 4px solid #fff;
+        }
+        &.dsc {
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 4px solid #fff;
+        }
+    }
+
+    button {
+        text-decoration: none;
+        text-align: center;
+        padding: 11px 32px;
+        border: solid 1px #42b983;
+        -webkit-border-radius: 19px;
+        -moz-border-radius: 19px;
+        border-radius: 19px;
+        font: 10px Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        color: #42b983;
+        background: #ffffff;
+        -webkit-box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
+        -moz-box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
+        box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
+    }
+</style>

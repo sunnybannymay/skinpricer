@@ -1,6 +1,20 @@
 <template>
     <div>
-        <table>
+        <!--<div class="itemsFavourite">-->
+        <!--<div class="search-panel">-->
+        <!--<input class="search-panel__input"-->
+        <!--type="search"-->
+        <!--placeholder="Search item"-->
+        <!--v-on:input="searchItem($event.target.value)">-->
+        <!--</div>-->
+        <span class="itemsFavourite_show">
+                <router-link v-bind:to="'/favourites'">
+                    <button>
+                        Show favourites
+                    </button>
+                </router-link>
+            </span>
+        <table class="items-table">
             <tr>
                 <th v-for="key in columns">{{key}}</th>
             </tr>
@@ -9,8 +23,9 @@
                 <td>{{item.lowest_price}}</td>
                 <td>{{item.price}}</td>
                 <td>{{item.bitop}} %</td>
+                <td>{{item.opbit}} %</td>
                 <td>
-                    <button @click="addToFav(item)">Add to favs</button>
+                    <button @click="addToFav(item)" :class="{active: !checkItem(item)}">Add to favs</button>
                 </td>
             </tr>
         </table>
@@ -27,8 +42,9 @@
     export default {
         data() {
             return {
-                columns: ['item name', 'lowest price bitskins', 'lowest price opskins', 'BIT/OP (%)', 'OP/BIT (%)'],
-                favItemsList:[]
+                columns: ['item name', 'lowest price bitskins', 'lowest price opskins', 'BIT/OP (%)', 'OP/BIT (%)', 'Add to favs'],
+                favItemsList: [],
+                isActive: false
 //                items: () => {
 //                    let items = _(this.items_bitskins) // start sequence
 //                        .keyBy('market_hash_name') // create a dictionary of the 1st array
@@ -44,7 +60,11 @@
             mapGetters(
                 {
 
-                    items: getter_types.GET_ITEMS
+                    items: getter_types.GET_ITEMS,
+                    items_fav: getter_types.GET_FAVOURITE_ITEMS
+//                    addedtofav: ()=>{
+//                        return
+//                    }
 //                percentBitOps: () => {
 //                    var sortKey = this.sortKey;
 //                    var filterKey = this.filterKey && this.filterKey.toLowerCase();
@@ -65,25 +85,49 @@
 //                        })
 //                    }
 //                    return data
-//                }
+//                }</div>
                 }),
+
         methods:
             {
-                addToFav (itemToAdd) {
-                    console.log(itemToAdd);
-                    this.$store.dispatch(action_types.ADD_TO_FAVS,itemToAdd)
-                }
-            },
-        created() {
+                addToFav(itemToAdd) {
+                    console.log('itemToAdd', itemToAdd);
+                    this.$store.dispatch(action_types.ADD_TO_FAVS, itemToAdd)
+                },
+                showPreloader() {
+                    if (this.$store.commit(mutation_types.UPLOAD_DATA))
+                        return true;
+                },
+                checkItem(item) {
+                    _.findIndex(this.$store.state.favItemsList, (favitem) => item.market_hash_name === favitem.market_hash_name)
+            }
+//                },
+//                searchItem(value) {
+//                    this.$store.dispatch(action_types.SEARCH_ITEM, value)
+//                        .then((res) => {
+//                            this.favItemsList = res.filter((foundItem) => {
+//                                // If city already in favourite list - delete it
+//                                const index = this.$store.state.favItemsList
+//                                    .findIndex((favItem) => foundItem.id === favItem.id);
+//                                return index === -1;
+//                            });
+//                        })
+//                        .catch(() => this.favItemsList = []);
+//                }
+    }
+    ,
+    created()
+    {
 //            this.$store.dispatch(action_types.GET_ITEMS_BITSKINS);
 //           this.$store.dispatch(action_types.GET_ITEMS_OPSKINS);
-            this.$store.commit(mutation_types.GET_ALL_ITEMS);
+        this.$store.commit(mutation_types.GET_ALL_ITEMS);
 
-        }
+    }
     }
 </script>
 
-<style>
+<style lang="scss">
+    $maincolor: #42b983;
     body {
         font-family: Helvetica Neue, Arial, sans-serif;
         font-size: 14px;
@@ -91,13 +135,13 @@
     }
 
     table {
-        border: 2px solid #42b983;
+        border: 2px solid $maincolor;
         border-radius: 3px;
         background-color: #fff;
     }
 
     th {
-        background-color: #42b983;
+        background-color: $maincolor;
         color: rgba(255, 255, 255, 0.66);
         cursor: pointer;
         -webkit-user-select: none;
@@ -117,10 +161,9 @@
 
     th.active {
         color: #fff;
-    }
-
-    th.active .arrow {
-        opacity: 1;
+        .arrow {
+            opacity: 1;
+        }
     }
 
     .arrow {
@@ -130,21 +173,36 @@
         height: 0;
         margin-left: 5px;
         opacity: 0.66;
-    }
-
-    .arrow.asc {
-        border-left: 4px solid transparent;
-        border-right: 4px solid transparent;
-        border-bottom: 4px solid #fff;
-    }
-
-    .arrow.dsc {
-        border-left: 4px solid transparent;
-        border-right: 4px solid transparent;
-        border-top: 4px solid #fff;
+        &.asc {
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-bottom: 4px solid #fff;
+        }
+        &.dsc {
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 4px solid #fff;
+        }
     }
 
     button {
-        border-bottom: 2px;
+        text-decoration: none;
+        text-align: center;
+        padding: 11px 32px;
+        border: solid 1px #42b983;
+        -webkit-border-radius: 19px;
+        -moz-border-radius: 19px;
+        border-radius: 19px;
+        font: 10px Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        color: $maincolor;
+        background: #ffffff;
+        -webkit-box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
+        -moz-box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
+        box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
+    }
+
+    .active {
+        background-color: aqua;
     }
 </style>
