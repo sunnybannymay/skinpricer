@@ -53,6 +53,42 @@
       "opbit": "94.13",
       "addedToFav": true,
       "id": 3
+    },
+    {
+      "market_hash_name": "AK-47 | Aquamarine Revenge (Factory New)",
+      "total_items": 7,
+      "lowest_price": "34.98",
+      "highest_price": "49.90",
+      "cumulative_price": "259.81",
+      "recent_sales_info": {
+        "hours": "20.16",
+        "average_price": "31.25"
+      },
+      "updated_at": 1503568976,
+      "price": 28.8,
+      "quantity": 84,
+      "bitop": "121.46",
+      "opbit": "82.33",
+      "addedToFav": true,
+      "id": 4
+    },
+    {
+      "market_hash_name": "AK-47 | Black Laminate (Field-Tested)",
+      "total_items": 21,
+      "lowest_price": "8.17",
+      "highest_price": "19.84",
+      "cumulative_price": "276.06",
+      "recent_sales_info": {
+        "hours": "45.23",
+        "average_price": "8.43"
+      },
+      "updated_at": 1503568709,
+      "price": 8,
+      "quantity": 140,
+      "bitop": "102.13",
+      "opbit": "97.92",
+      "addedToFav": true,
+      "id": 5
     }
   ]
 }

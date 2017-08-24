@@ -1,5 +1,6 @@
 <template>
     <div>
+        <!--<vue-simple-spinner></vue-simple-spinner>-->
         <div class="itemsFavourite_show">
             <router-link v-bind:to="'/favourites'">
                 <button class="button_favourites">
@@ -11,10 +12,10 @@
             <input class="search-panel__input"
                    type="search"
                    placeholder="Search item"
-                   @input="searchCity($event.target.value)">
+                   @input="searchItem($event.target.value)">
             <div class="search-panel__list">
-                <div class="search-panel__list__item" v-for="city in foundedCityList" @click="addToFav(city)">
-                    {{ city.name }}
+                <div class="search-panel__list__item" v-for="item in favItemsList">
+                    {{ item.market_hash_name}}
                 </div>
             </div>
         </div>
@@ -42,22 +43,23 @@
     import * as mutation_types from '../../store/mutation-types';
     import * as action_types from '../../store/action-types';
     import * as getter_types from '../../store/getter-types';
+    import { createVuexLoader } from 'vuex-loading';
+    import VueSimpleSpinner from "../../../node_modules/vue-simple-spinner/src/components/Spinner.vue";
+
+    //    const VuexLoading = createVuexLoader({
+    //        moduleName: 'loading',
+    //        componentName: 'my-loading',
+    //        className: 'my-loading'
+    //    });
+    //    Vue.use(VuexLoading);
 
     export default {
+        components: {VueSimpleSpinner},
         data() {
             return {
                 columns: ['item name', 'lowest price bitskins', 'lowest price opskins', 'BIT/OP (%)', 'OP/BIT (%)', 'Add to favs'],
                 favItemsList: [],
                 isActiveLabel: false
-//                items: () => {
-//                    let items = _(this.items_bitskins) // start sequence
-//                        .keyBy('market_hash_name') // create a dictionary of the 1st array
-//                        .merge(_.keyBy(this.items_opskins, 'market_hash_name')) // create a dictionary of the 2nd array, and merge it to the 1st
-//                        .values() // turn the combined dictionary to array
-//                        .value();
-//                    console.log(items);
-//                    return items;
-                //}
             }
         },
         computed:
@@ -66,30 +68,6 @@
 
                     items: getter_types.GET_ITEMS,
                     items_fav: getter_types.GET_FAVOURITE_ITEMS
-//                    addedtofav: ()=>{
-//                        return
-//                    }
-//                percentBitOps: () => {
-//                    var sortKey = this.sortKey;
-//                    var filterKey = this.filterKey && this.filterKey.toLowerCase();
-//                    var order = this.sortOrders[sortKey] || 1;
-//                    var data = this.data;
-//                    if (filterKey) {
-//                        data = data.filter(function (row) {
-//                            return Object.keys(row).some(function (key) {
-//                                return String(row[key]).toLowerCase().indexOf(filterKey) > -1
-//                            })
-//                        })
-//                    }
-//                    if (sortKey) {
-//                        data = data.slice().sort(function (a, b) {
-//                            a = a[sortKey];
-//                            b = b[sortKey];
-//                            return (a === b ? 0 : a > b ? 1 : -1) * order
-//                        })
-//                    }
-//                    return data
-//                }</div>
                 }),
 
         methods:
@@ -98,9 +76,12 @@
 
                     this.$store.dispatch(action_types.ADD_TO_FAVS, itemToAdd)
                 },
-                showPreloader() {
-                    if (this.$store.commit(mutation_types.UPLOAD_DATA))
-                        return true;
+                searchItem(value) {
+                    this.$store.dispatch(action_types.SEARCH_ITEM, value)
+                        .then((res) => {
+                            this.favItemsList = res.filter(this.$store.state.items.indexOf(value));
+                        })
+                        .catch(() => this.favItemsList = []);
                 },
                 class_isAdded(item) {
                     if (this.items_fav.findIndex((item_temp) => item_temp.market_hash_name === item.market_hash_name) >= 0) {
@@ -111,8 +92,6 @@
         }
         ,
         mounted() {
-//            this.$store.dispatch(action_types.GET_ITEMS_BITSKINS);
-//           this.$store.dispatch(action_types.GET_ITEMS_OPSKINS);
             this.$store.commit(mutation_types.GET_ALL_ITEMS);
             this.$store.dispatch(action_types.GET_FAV_ITEMS);
         }
