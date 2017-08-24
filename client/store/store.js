@@ -14,7 +14,7 @@ const state = {
     items_bitskins: [],
     items_opskins: [],
     items: [],
-    favouriteItemsList: []
+    favouriteItemsList: new Array(5)
 };
 
 const getters = {
@@ -91,7 +91,7 @@ const mutations = {
     },
     [mutation_types.ADD_TO_FAVS](state, item) {
         console.log('item', item);
-        console.log(state.items);
+        console.log(state.favouriteItemsList);
         state.favouriteItemsList.push(item);
         axios.post('http://localhost:3000/favItemsList', item);
     },

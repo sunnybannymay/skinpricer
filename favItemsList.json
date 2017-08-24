@@ -2,201 +2,57 @@
   "favItemsList": [
     {
       "market_hash_name": "AK-47 | Aquamarine Revenge (Battle-Scarred)",
-      "total_items": 45,
-      "lowest_price": "10.97",
+      "total_items": 53,
+      "lowest_price": "10.14",
       "highest_price": "25.96",
-      "cumulative_price": "921.01",
+      "cumulative_price": "1116.34",
       "recent_sales_info": {
-        "hours": "19.63",
-        "average_price": "10.50"
+        "hours": "17.71",
+        "average_price": "10.23"
       },
-      "updated_at": 1503002768,
-      "price": 10.23,
-      "quantity": 134,
-      "bitop": "107.23",
-      "opbit": "93.25",
+      "updated_at": 1503565015,
+      "price": 9.99,
+      "quantity": 182,
+      "bitop": "101.50",
+      "opbit": "98.52",
       "addedToFav": true,
       "id": 1
     },
     {
-      "market_hash_name": "AK-47 | Aquamarine Revenge (Battle-Scarred)",
-      "total_items": 45,
-      "lowest_price": "10.97",
-      "highest_price": "25.96",
-      "cumulative_price": "921.01",
+      "market_hash_name": "AK-47 | Aquamarine Revenge (Field-Tested)",
+      "total_items": 54,
+      "lowest_price": "14.63",
+      "highest_price": "50.00",
+      "cumulative_price": "1360.90",
       "recent_sales_info": {
-        "hours": "19.63",
-        "average_price": "10.50"
+        "hours": "26.34",
+        "average_price": "15.08"
       },
-      "updated_at": 1503002768,
-      "price": 10.23,
-      "quantity": 134,
-      "bitop": "107.23",
-      "opbit": "93.25",
+      "updated_at": 1503565335,
+      "price": 13.99,
+      "quantity": 658,
+      "bitop": "104.57",
+      "opbit": "95.63",
       "addedToFav": true,
       "id": 2
     },
     {
-      "market_hash_name": "AK-47 | Aquamarine Revenge (Factory New)",
-      "total_items": 5,
-      "lowest_price": "31.95",
-      "highest_price": "41.19",
-      "cumulative_price": "173.14",
+      "market_hash_name": "AK-47 | Aquamarine Revenge (Well-Worn)",
+      "total_items": 82,
+      "lowest_price": "12.61",
+      "highest_price": "31.52",
+      "cumulative_price": "1705.79",
       "recent_sales_info": {
-        "hours": "22.79",
-        "average_price": "31.56"
+        "hours": "32.13",
+        "average_price": "12.75"
       },
-      "updated_at": 1502997427,
-      "price": 30.49,
-      "quantity": 75,
-      "bitop": "104.79",
-      "opbit": "95.43",
+      "updated_at": 1503563230,
+      "price": 11.87,
+      "quantity": 365,
+      "bitop": "106.23",
+      "opbit": "94.13",
       "addedToFav": true,
       "id": 3
-    },
-    {
-      "market_hash_name": "AK-47 | Aquamarine Revenge (Field-Tested)",
-      "total_items": 58,
-      "lowest_price": "15.33",
-      "highest_price": "50.00",
-      "cumulative_price": "1700.09",
-      "recent_sales_info": {
-        "hours": "19.96",
-        "average_price": "15.34"
-      },
-      "updated_at": 1503002831,
-      "price": 14.5,
-      "quantity": 453,
-      "bitop": "105.72",
-      "opbit": "94.59",
-      "addedToFav": true,
-      "id": 4
-    },
-    {
-      "market_hash_name": "AK-47 | Aquamarine Revenge (Factory New)",
-      "total_items": 5,
-      "lowest_price": "31.95",
-      "highest_price": "41.19",
-      "cumulative_price": "173.14",
-      "recent_sales_info": {
-        "hours": "22.79",
-        "average_price": "31.56"
-      },
-      "updated_at": 1502997427,
-      "price": 30.49,
-      "quantity": 74,
-      "bitop": "104.79",
-      "opbit": "95.43",
-      "addedToFav": true,
-      "id": 5
-    },
-    {
-      "market_hash_name": "AK-47 | Aquamarine Revenge (Field-Tested)",
-      "total_items": 58,
-      "lowest_price": "15.32",
-      "highest_price": "50.00",
-      "cumulative_price": "1700.07",
-      "recent_sales_info": {
-        "hours": "19.96",
-        "average_price": "15.34"
-      },
-      "updated_at": 1503003561,
-      "price": 14.55,
-      "quantity": 453,
-      "bitop": "105.29",
-      "opbit": "94.97",
-      "addedToFav": true,
-      "id": 6
-    },
-    {
-      "market_hash_name": "AK-47 | Aquamarine Revenge (Battle-Scarred)",
-      "total_items": 45,
-      "lowest_price": "10.97",
-      "highest_price": "25.96",
-      "cumulative_price": "921.00",
-      "recent_sales_info": {
-        "hours": "19.63",
-        "average_price": "10.50"
-      },
-      "updated_at": 1503003628,
-      "price": 10.22,
-      "quantity": 135,
-      "bitop": "107.34",
-      "opbit": "93.16",
-      "addedToFav": true,
-      "id": 7
-    },
-    {
-      "market_hash_name": "AK-47 | Aquamarine Revenge (Factory New)",
-      "total_items": 5,
-      "lowest_price": "31.95",
-      "highest_price": "41.19",
-      "cumulative_price": "173.14",
-      "recent_sales_info": {
-        "hours": "22.79",
-        "average_price": "31.56"
-      },
-      "updated_at": 1502997427,
-      "price": 30.49,
-      "quantity": 74,
-      "bitop": "104.79",
-      "opbit": "95.43",
-      "addedToFav": true,
-      "id": 8
-    },
-    {
-      "market_hash_name": "AK-47 | Aquamarine Revenge (Field-Tested)",
-      "total_items": 58,
-      "lowest_price": "15.32",
-      "highest_price": "50.00",
-      "cumulative_price": "1700.07",
-      "recent_sales_info": {
-        "hours": "19.96",
-        "average_price": "15.34"
-      },
-      "updated_at": 1503003561,
-      "price": 14.55,
-      "quantity": 453,
-      "bitop": "105.29",
-      "opbit": "94.97",
-      "addedToFav": true,
-      "id": 9
-    },
-    {
-      "market_hash_name": "AK-47 | Emerald Pinstripe (Factory New)",
-      "total_items": 93,
-      "lowest_price": "2.22",
-      "highest_price": "23.27",
-      "cumulative_price": "401.78",
-      "recent_sales_info": {
-        "hours": "38.78",
-        "average_price": "2.44"
-      },
-      "updated_at": 1503038891,
-      "price": 2.25,
-      "quantity": 188,
-      "bitop": "98.67",
-      "opbit": "101.35",
-      "addedToFav": true,
-      "id": 10
-    },
-    {
-      "market_hash_name": "AK-47 | Emerald Pinstripe (Field-Tested)",
-      "total_items": 768,
-      "lowest_price": "1.00",
-      "highest_price": "11.36",
-      "cumulative_price": "1741.25",
-      "recent_sales_info": {
-        "hours": "29.20",
-        "average_price": "1.05"
-      },
-      "updated_at": 1503040163,
-      "price": 1,
-      "quantity": 281,
-      "bitop": "100.00",
-      "opbit": "100.00",
-      "addedToFav": true,
-      "id": 11
     }
   ]
 }

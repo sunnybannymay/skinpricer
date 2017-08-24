@@ -15,7 +15,7 @@
                 <td>{{item.bitop}} %</td>
                 <td>{{item.opbit}} %</td>
                 <td>
-                    <button class="button_addtofav" @click="deleteItemFav(item)">Delete from favs</button>
+                    <button :class="{delete: true}" @click="deleteItemFav(item)">Delete from favs</button>
                 </td>
             </tr>
         </table>
@@ -125,16 +125,21 @@
         text-decoration: none;
         text-align: center;
         padding: 11px 32px;
-        border: solid 1px #42b983;
+        border: solid 1px $maincolor;
         -webkit-border-radius: 19px;
         -moz-border-radius: 19px;
         border-radius: 19px;
-        font: 10px Arial, Helvetica, sans-serif;
+        font: 18px Arial, Helvetica, sans-serif;
         font-weight: bold;
-        color: #42b983;
+        color: $maincolor;
         background: #ffffff;
-        -webkit-box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
-        -moz-box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
-        box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
+        margin-bottom: 30px;
+        margin-top: 30px;
+    }
+
+    .delete {
+        background-color: #edf6ff;
+        font: 12px Arial, Helvetica, sans-serif;
+        font-weight: bold;
     }
 </style>
