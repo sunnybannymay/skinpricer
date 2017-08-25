@@ -62,7 +62,6 @@
         methods:
             {
                 addToFav(itemToAdd) {
-
                     this.$store.dispatch(action_types.ADD_TO_FAVS, itemToAdd)
                 },
                 searchItem(value) {

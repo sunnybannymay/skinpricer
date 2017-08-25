@@ -5,11 +5,15 @@ import * as mutation_types from './mutation-types';
 import * as action_types from './action-types';
 import * as getter_types from './getter-types';
 import axios from 'axios';
-
-
-import col from 'lodash';
-
+import Config from './../../config.json';
 Vue.use(Vuex);
+
+let host;
+if (Config.hasOwnProperty('apiServer')) {
+    host = `${Config.apiServer.host}:${Config.apiServer.port}`;
+} else {
+    host = '';
+}
 const state = {
     items_bitskins: [],
     items_opskins: [],
@@ -50,7 +54,7 @@ const actions = {
         commit(mutation_types.ADD_TO_FAVS, item);
     },
     [action_types.GET_FAV_ITEMS]({commit}) {
-        axios.get('http://localhost:3000/favItemsList')
+        axios.get('http://localhost3000/favItemsList')
             .then((res) => {
                 commit(mutation_types.GET_FAV_ITEMS, res.data);
             })
@@ -64,7 +68,7 @@ const actions = {
 };
 const api_local={
     search:(value,resolve,reject)=>{
-        axios.get('http://localhost:3000/favItemsList')
+        axios.get('http://localhost3000/favItemsList')
             .then((res) => {resolve(res.data)})
             .catch(() => reject());
 
@@ -100,7 +104,7 @@ const mutations = {
         console.log('item', item);
         console.log(state.favouriteItemsList);
         state.favouriteItemsList.push(item);
-        axios.post('http://localhost:3000/favItemsList', item);
+        axios.post('http://localhost3000/favItemsList', item);
     },
     [mutation_types.GET_FAV_ITEMS](state, favitems) {
         state.favouriteItemsList = favitems;
@@ -110,7 +114,7 @@ const mutations = {
         const index = state.favouriteItemsList
             .findIndex(item => itemToRemove.id === item.id);
         state.favouriteItemsList.splice(index, 1);
-        axios.delete('http://localhost:3000/favItemsList/' + itemToRemove.id);
+        axios.delete('http://localhost3000/favItemsList' + itemToRemove.id);
     },
     setNotFound(state) {
         console.log('ee');
