@@ -43,9 +43,7 @@
     import * as action_types from '../../store/action-types';
     import * as getter_types from '../../store/getter-types';
 
-
     export default {
-
         data() {
             return {
                 columns: ['item name', 'lowest price bitskins', 'lowest price opskins', 'BIT/OP (%)', 'OP/BIT (%)', 'Add to favs'],

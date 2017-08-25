@@ -1,16 +1,16 @@
 {
   "name": "summer-school-2017",
   "version": "0.1.0",
-  "description": "Findind the most valuble skins for tradind",
+  "description": "Summer School 2017 Weather Application",
   "main": "client/index.js",
   "scripts": {
     "test": "testcafe all test/e2e/index.js --app \"npm run dev\" --app-init-delay 10000",
     "build": "webpack --config build/webpack.prod.js",
     "dev": "node build/server.js",
     "lint": "xo **/client/**/*.{vue,js} !node_modules/**",
-    "start": "node build/server.js server/favItemsList.json"
+    "heroku-postbuild": "webpack --config build/webpack.prod.js"
   },
-  "author": "nadya kott",
+  "author": "ivansozinov <i.sozinov@xsolla.com>",
   "license": "MIT",
   "xo": {
     "extends": "./.eslintrc",
@@ -48,7 +48,6 @@
     "thirty-two": "^1.0.2",
     "vue": "^2.2.0",
     "vue-router": "^2.7.0",
-    "vue-simple-spinner": "^1.2.5",
     "vuex": "^2.0.0",
     "vuex-router-sync": "^4.0.0"
   },

@@ -6,8 +6,10 @@ import * as action_types from './action-types';
 import * as getter_types from './getter-types';
 import axios from 'axios';
 
-Vue.use(Vuex);
 
+import col from 'lodash';
+
+Vue.use(Vuex);
 const state = {
     items_bitskins: [],
     items_opskins: [],
@@ -47,12 +49,12 @@ const actions = {
         item.addedToFav=true;
         commit(mutation_types.ADD_TO_FAVS, item);
     },
-    [action_types.GET_FAV_ITEMS]({commit},reject) {
+    [action_types.GET_FAV_ITEMS]({commit}) {
         axios.get('http://localhost:3000/favItemsList')
             .then((res) => {
                 commit(mutation_types.GET_FAV_ITEMS, res.data);
             })
-            .catch(() => reject());
+            .catch(() => commit('setNotFound'));
     },
     [action_types.SEARCH_ITEM] (value) {
         return new Promise((resolve, reject) => {
@@ -60,13 +62,14 @@ const actions = {
         });
     }
 };
-// const api_local={
-//     search(searchString, resolve, reject) {
-//         axios.get(`${host}/favItemsList?q=${searchString}`)
-//             .then(resolve)
-//             .catch(reject);
-//     }
-// };
+const api_local={
+    search:(value,resolve,reject)=>{
+        axios.get('http://localhost:3000/favItemsList')
+            .then((res) => {resolve(res.data)})
+            .catch(() => reject());
+
+    }
+};
 const mutations = {
     [mutation_types.UPLOAD_DATA](state, {items}) {
         state.items_bitskins = items;
@@ -78,6 +81,7 @@ const mutations = {
             .values() //get the values of the result
             .value();
         state.items_opskins = items;
+        //.log(state.items_opskins);
     },
     [mutation_types.GET_ALL_ITEMS](state) {
         state.items = _(state.items_bitskins) // start sequence
@@ -93,6 +97,7 @@ const mutations = {
             });
     },
     [mutation_types.ADD_TO_FAVS](state, item) {
+        console.log('item', item);
         console.log(state.favouriteItemsList);
         state.favouriteItemsList.push(item);
         axios.post('http://localhost:3000/favItemsList', item);
@@ -106,6 +111,15 @@ const mutations = {
             .findIndex(item => itemToRemove.id === item.id);
         state.favouriteItemsList.splice(index, 1);
         axios.delete('http://localhost:3000/favItemsList/' + itemToRemove.id);
+    },
+    setNotFound(state) {
+        console.log('ee');
+        state.currentCity = {
+            temperature: '',
+            name: null,
+            description: '',
+            imgUrl: ''
+        };
     },
     searchItem(value)
     {
