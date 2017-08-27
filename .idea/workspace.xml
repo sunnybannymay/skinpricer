@@ -2,19 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="72cbffb7-f5cd-49dc-abe2-9df5cb108007" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/client.a5f9bcd9.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/client.a5f9bcd9.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/favicon.ico" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/manifest.f01a663f.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/manifest.f01a663f.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/styles.7b07b1b8.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/styles.7b07b1b8.css.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/vendor.b4857443.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/vendor.b4857443.js.map" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/webpack.prod.js" afterPath="$PROJECT_DIR$/build/webpack.prod.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/store/store.js" afterPath="$PROJECT_DIR$/client/store/store.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -230,6 +218,11 @@
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="store" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="skinpricer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="skinpricer" type="462c0819:PsiDirectoryNode" />
+              <item name="dist" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -307,11 +300,18 @@
       <option name="project" value="LOCAL" />
       <updated>1502375445132</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="added searching">
+      <created>1503876560363</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1503876560363</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="178582000" />
+    <option name="totallyTimeSpent" value="178649000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
