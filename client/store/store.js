@@ -7,8 +7,6 @@ import * as getter_types from './getter-types';
 import axios from 'axios';
 
 
-import col from 'lodash';
-
 Vue.use(Vuex);
 const state = {
     items_bitskins: [],
@@ -20,7 +18,7 @@ const state = {
 const getters = {
     [getter_types.GET_ITEMS_BITSKINS]: state => state.items_bitskins,
     [getter_types.GET_ITEMS_OPSKINS]: state => state.items_opskins,
-    [getter_types.GET_ITEMS]: state => {
+    GET_ITEMS: state => {
         if (state.items_bitskins.length === 0 || state.items_opskins.length === 0) {
             store.dispatch(action_types.GET_ITEMS_BITSKINS);
             store.dispatch(action_types.GET_ITEMS_OPSKINS);
@@ -28,7 +26,8 @@ const getters = {
         store.commit(mutation_types.GET_ALL_ITEMS);
         return state.items;
     },
-    [getter_types.GET_FAVOURITE_ITEMS]: state => state.favouriteItemsList
+    GET_FAVOURITE_ITEMS: state => state.favouriteItemsList
+
 };
 const actions = {
     [action_types.GET_ITEMS_BITSKINS]({commit}) {
@@ -46,7 +45,7 @@ const actions = {
         )
     },
     [action_types.ADD_TO_FAVS]({commit}, item) {
-        item.addedToFav=true;
+        item.addedToFav = true;
         commit(mutation_types.ADD_TO_FAVS, item);
     },
     [action_types.GET_FAV_ITEMS]({commit}) {
@@ -56,16 +55,18 @@ const actions = {
             })
             .catch(() => commit('setNotFound'));
     },
-    [action_types.SEARCH_ITEM] (value) {
+    [action_types.SEARCH_ITEM](value) {
         return new Promise((resolve, reject) => {
             api_local.search(value, resolve, reject);
         });
-    }
+    },
 };
-const api_local={
-    search:(value,resolve,reject)=>{
+const api_local = {
+    search: (value, resolve, reject) => {
         axios.get('http://localhost:3000/favItemsList')
-            .then((res) => {resolve(res.data)})
+            .then((res) => {
+                resolve(res.data)
+            })
             .catch(() => reject());
 
     }
@@ -121,8 +122,7 @@ const mutations = {
             imgUrl: ''
         };
     },
-    searchItem(value)
-    {
+    searchItem(value) {
 
     }
 

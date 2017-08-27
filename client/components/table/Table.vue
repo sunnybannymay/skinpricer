@@ -9,16 +9,29 @@
         </div>
         <div class="search-panel">
             <input class="search-panel__input"
-                   type="search"
+                   v-model="search"
                    placeholder="Search item"
-                   @input="searchItem($event.target.value)">
-            <div class="search-panel__list">
-                <div class="search-panel__list__item" v-for="item in favItemsList">
-                    {{ item.market_hash_name}}
-                </div>
+            @click="addToArray">
+            <div class="search-panel__table" v-if="search.length!==0">
+                <table class="table-items">
+                    <tr>
+                        <th class="table-items_header" v-for="key in columns">{{key}}</th>
+                    </tr>
+                    <tr v-for="item in filteredItems">
+                        <td>{{item.market_hash_name}}</td>
+                        <td>{{item.lowest_price}}</td>
+                        <td>{{item.price}}</td>
+                        <td>{{item.bitop}} %</td>
+                        <td>{{item.opbit}} %</td>
+                        <td>
+                            <input type="button" @click="addToFav(item)" value="Add to favs" :class="class_isAdded(item)">
+                            <!--<label :class="{'IsActiveLabel':item.addedToFav}">Item added to favourites</label>-->
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
-        <table class="table-items">
+        <table class="table-items" v-if="search.length===0">
             <tr>
                 <th class="table-items_header" v-for="key in columns">{{key}}</th>
             </tr>
@@ -48,38 +61,42 @@
             return {
                 columns: ['item name', 'lowest price bitskins', 'lowest price opskins', 'BIT/OP (%)', 'OP/BIT (%)', 'Add to favs'],
                 favItemsList: [],
-                isActiveLabel: false
+                isNotActiveTable: false,
+                search: '',
+                items_arr:[]
             }
         },
         computed:
-            mapGetters(
-                {
-
-                    items: getter_types.GET_ITEMS,
-                    items_fav: getter_types.GET_FAVOURITE_ITEMS
-                }),
-
+            {
+                items() {
+                    return this.$store.getters.GET_ITEMS
+                },
+                items_fav() {
+                    return this.$store.getters.GET_FAVOURITE_ITEMS
+                },
+                filteredItems: function () {
+                    return this.items_arr.filter((item) => {
+                        return item.market_hash_name.match(new RegExp(this.search,'gi'));
+                    })
+                }
+            },
         methods:
             {
                 addToFav(itemToAdd) {
 
                     this.$store.dispatch(action_types.ADD_TO_FAVS, itemToAdd)
                 },
-                searchItem(value) {
-                    this.$store.dispatch(action_types.SEARCH_ITEM, value)
-                        .then((res) => {
-                            this.favItemsList = res.filter(this.$store.state.items.indexOf(value));
-                        })
-                        .catch(() => this.favItemsList = []);
+                addToArray() {
+                    this.items_arr=this.$store.state.items;
+                    console.log(this.items_arr);
                 },
                 class_isAdded(item) {
                     if (this.items_fav.findIndex((item_temp) => item_temp.market_hash_name === item.market_hash_name) >= 0) {
-                        return {'non-active_button': true};
+                        return {'non-active': true};
                     }
                     else return {'active_button': true};
                 }
-        }
-        ,
+            },
         mounted() {
             this.$store.commit(mutation_types.GET_ALL_ITEMS);
             this.$store.dispatch(action_types.GET_FAV_ITEMS);
@@ -175,15 +192,10 @@
         background: #eafff6;
     }
 
-    .non-active_button {
+    .non-active {
         display: none;
     }
 
-    .isActiveLabel {
-        text-align: center;
-        font: 15px Arial, Helvetica, sans-serif;
-        color: $maincolor;
-    }
 
     .search-panel {
         &__input {
