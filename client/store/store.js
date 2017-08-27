@@ -5,6 +5,7 @@ import * as mutation_types from './mutation-types';
 import * as action_types from './action-types';
 import * as getter_types from './getter-types';
 import axios from 'axios';
+import _ from 'lodash';
 
 
 Vue.use(Vuex);
